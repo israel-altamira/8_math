@@ -1,36 +1,28 @@
-import {Injectable} from '@angular/core';
-import {DataService} from './data.service';
-import {IteracionService} from './iteracion.service';
+import { Injectable } from '@angular/core';
+import { Iteracion } from '../model/iteracion';
+import { Data } from '../model/data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculateService {
 
-  public dataService: DataService;
-  public iteracionService: IteracionService;
+  public data: Data = new Data();
+  public iteracion: Iteracion[] = [];
 
   constructor() {
   }
 
-  public setDataService(dataService: DataService) {
-    this.dataService = dataService;
-  }
-
-  public setIteracionService(iteracionService: IteracionService) {
-    this.iteracionService = iteracionService;
-  }
-
   public calculatePi() {
-    const ladosMin = this.dataService.data.ladosMin;
-    const ladosMax = this.dataService.data.ladosMax;
-    const ladosInicio = this.dataService.data.lados;
-    const radio = this.dataService.data.radio;
+    const ladosMin = this.data.ladosMin;
+    const ladosMax = this.data.ladosMax;
+    const ladosInicio = this.data.lados;
+    const radio = this.data.radio;
     if (ladosInicio >= ladosMin && ladosInicio <= ladosMax) {
-      for (let i = ladosInicio; i < ladosMax; i++) {
-        this.calcularTrianguloDelPoligono(i, radio);
+      for (let ladosPoligono = ladosInicio, index = 0; ladosPoligono < ladosMax; ladosPoligono++, index++) {
+        this.calcularTrianguloDelPoligono(index, ladosPoligono, radio);
         // esperar milisegundos por iteracion para graficar
-        // this.dataService.data.esperar;
+        // this.data.esperar;
         // avisar con el iteration-service los resultados de la iteracion
       }
     }
@@ -41,32 +33,35 @@ export class CalculateService {
    - radio (viene del user input)
    - angulos para sacar el lados opuesto y adyacente del triangulo
    */
-  private calcularTrianguloDelPoligono(iteracion: number, radio: number) {
-    this.iteracionService.iteracion.iteracion = iteracion;
+  private calcularTrianguloDelPoligono(index: number, ladosPoligono: number, radio: number) {
+    console.log(`Arreglo de iteraciones length: ${this.iteracion.length}`);
+    const aprox = new Iteracion();
+    aprox.ladosPoligono = ladosPoligono;
     // sacar el angulo dividiendo el numero de lados del poligono:
-    // por ej, de un pentagono tenemos 360 / 2 para sacar 5 triangulos
+    // por ej, de un pentagono tenemos Pi*2 radianes / 5 para sacar 5 triangulos
     // y volvemos a dividir esos 5 triangulos entre 2
     // ya que estaremos haciendo calculos sobre triangulos rectangulos.
-    const angulo = 360 / 2 / iteracion;
-    const hipotenusa = radio;
+    aprox.hipotenusa = radio;
+    aprox.angulo = Math.PI / ladosPoligono;
     // usaremos el coseno para sacar el lado adyacente
-    const adyacente = Math.cos(angulo) * hipotenusa;
+    aprox.cos = Math.cos(aprox.angulo);
+    aprox.adyacente = aprox.cos * aprox.hipotenusa;
     // usaremos el seno para sacar el lado opuesto
-    const opuesto = Math.sin(angulo) * hipotenusa;
-    // para sacar el area tenemos A = base * altura / 2
-    // esto es:
-    const areaTriangulo = (opuesto * 2) * adyacente / 2;
+    aprox.sin = Math.sin(aprox.angulo);
+    aprox.opuesto = aprox.sin * aprox.hipotenusa;
+    console.log(`angulo ${aprox.angulo} // adyacente ${aprox.adyacente} // opuesto ${aprox.opuesto} // hipotenusa ${aprox.hipotenusa}`);
+    console.log(`coseno ${Math.cos(aprox.angulo)}, seno ${Math.sin(aprox.angulo)}`);
+    // para sacar el area de cada triangulo en el poligono tenemos A = base * altura / 2
+    aprox.areaTriangular = (aprox.opuesto) * aprox.adyacente / 2;
     // ahora seteamos el area de tooodooo el poligono
-    this.iteracionService.iteracion.area = areaTriangulo * iteracion;
+    aprox.area = aprox.areaTriangular * 2 * ladosPoligono;
     // el perimetro es la base por el numero de triangulos del poilgono
     // y en este caso la base es dos veces el lado opuesto del triangulo q calculamos
-    this.iteracionService.iteracion.perimetro = (opuesto * 2) * iteracion;
-    this.iteracionService.iteracion.aproximacion = this.iteracionService.iteracion.perimetro / (radio * 2);
-    console.log(`${iteracion}
-    - perimeto interno: ${this.iteracionService.iteracion.perimetro}
-    - diametro: ${radio * 2}
-    - PI-iteracion: ${this.iteracionService.iteracion.aproximacion}`);
+    aprox.perimetro = (aprox.opuesto * 2) * ladosPoligono;
+    aprox.aproximacion = aprox.perimetro / (radio * 2);
+    console.log(`${index + 1} // perimeto poligono: ${aprox.perimetro} // PI-aprox: ${aprox.aproximacion}`);
     // EN TEORIA aqui podriamos avisarle al servicio de rendering que ya estan listas las cosas
     // es decir, rendering-service deberia subscribirse al service-iteration
+    this.iteracion[index] = aprox;
   }
 }

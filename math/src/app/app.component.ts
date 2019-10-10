@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DataService } from './service/data.service';
 import { CalculateService } from './service/calculate.service';
 import { Data } from './model/data';
-import { IteracionService } from './service/iteracion.service';
+import { PoligonoComponent } from './component/poligono/poligono.component';
+import { TablaComponent } from './component/tabla/tabla.component';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,15 @@ import { IteracionService } from './service/iteracion.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Polygonal Rendering and PI calculate';
+
+  @ViewChild('poligono') poligono: PoligonoComponent;
+  @ViewChild('tabla') tabla: TablaComponent;
 
   public form: FormGroup;
-  public data: Data;
+  public data = new Data();
+  public title = 'Polygonal Rendering and PI calculate';
 
-  constructor(public dataService: DataService,
-              public iteracionService: IteracionService,
-              public calculateService: CalculateService) {
+  constructor(public calculateService: CalculateService) {
 
     this.form = new FormGroup({
       ladosMin: new FormControl(),
@@ -37,11 +38,10 @@ export class AppComponent implements OnInit {
     this.data.lados = 5;
     this.data.radio = 10; // cm - pendiente escoger escala
     this.data.esperar = 1000;
-    this.dataService.setValues(this.data); // lados, radio
+    this.calculateService.data = this.data;
 
     // this.calculateService.subscribe((iteracion: Iteracion) => {
     // dibujar los datos de la iteracion
-    // polygonRenderComponent.setPolygonData(data, iteracion);
     // });
   }
 
@@ -49,9 +49,9 @@ export class AppComponent implements OnInit {
   }
 
   public onCalculate(): void {
-    this.calculateService.setDataService(this.dataService);
-    this.calculateService.setIteracionService(this.iteracionService);
     this.calculateService.calculatePi();
+    this.poligono.render();
+    this.tabla.render();
   }
 
 }

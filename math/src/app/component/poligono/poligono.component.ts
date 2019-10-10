@@ -1,18 +1,23 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { CalculateService } from '../../service/calculate.service';
 
 @Component({
-  selector: 'polygon-render',
-  templateUrl: './polygon-render.component.html',
-  styleUrls: ['./polygon-render.component.css']
+  selector: 'poligono',
+  templateUrl: './poligono.component.html',
+  styleUrls: ['./poligono.component.css']
 })
-export class PolygonRenderComponent implements OnInit {
+export class PoligonoComponent implements OnInit {
 
   @ViewChild('canvas') canvasRef: ElementRef;
+  @Input() calculateService: CalculateService;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  render() {
     const ctx: CanvasRenderingContext2D = this.canvasRef.nativeElement.getContext('2d');
 
     ctx.fillStyle = '#6ab150';
@@ -23,7 +28,7 @@ export class PolygonRenderComponent implements OnInit {
     const Y = this.canvasRef.nativeElement.height / 2;
     const R = 100;
     // el número de lados del polígono
-    const L = 5;
+    const L = this.calculateService.data.lados;
     // si L == 5 el ángulo es de 2π/6 o sea 60°
     const rad = (2 * Math.PI) / L;
     // dibuja el trazado
@@ -39,5 +44,4 @@ export class PolygonRenderComponent implements OnInit {
     ctx.fill();
     ctx.stroke();
   }
-
 }

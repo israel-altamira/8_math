@@ -6,13 +6,15 @@
 
 <div class="row">
   <div class="col-4">
-    <polygon-render></polygon-render>
+    <poligono #poligono [calculateService]="calculateService"></poligono>
   </div>
   <div class="col-8">
     <div class="row">
       <div class="col-12"><label for="lados">Lados</label><input type="text" value="5" id="lados"></div>
       <div class="col-12"><label for="radio">Radio</label><input type="text" value="10cm" id="radio"></div>
+      <div class="col-12"><input type="submit" value="calcular" (click)="onCalculate()"></div>
     </div>
   </div>
   <div>tabla de resultados</div>
+  <div><tabla #tabla [calculateService]="calculateService"></tabla></div>
 </div>

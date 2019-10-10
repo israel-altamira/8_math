@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PolygonRenderComponent } from './polygon-render.component';
+import { TablaComponent } from './tabla.component';
 
-describe('PolygonRenderComponent', () => {
-  let component: PolygonRenderComponent;
-  let fixture: ComponentFixture<PolygonRenderComponent>;
+describe('TablaComponent', () => {
+  let component: TablaComponent;
+  let fixture: ComponentFixture<TablaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PolygonRenderComponent ]
+      declarations: [ TablaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PolygonRenderComponent);
+    fixture = TestBed.createComponent(TablaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

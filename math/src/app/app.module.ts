@@ -1,19 +1,15 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {PolygonRenderComponent} from './polygon-render/polygon-render.component';
-import {DataService} from './service/data.service';
-import {CalculateService} from './service/calculate.service';
-import {IteracionService} from './service/iteracion.service';
+import { AppComponent } from './app.component';
+import { PoligonoComponent } from './component/poligono/poligono.component';
+import { TablaComponent } from './component/tabla/tabla.component';
 
 @NgModule({
   declarations: [
+    PoligonoComponent,
     AppComponent,
-    PolygonRenderComponent,
-    DataService,
-    CalculateService,
-    IteracionService
+    TablaComponent,
   ],
   imports: [
     BrowserModule
