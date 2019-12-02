@@ -1,7 +1,7 @@
-<div *ngIf="show">
-  <table style="border: 1px solid">
+<div class="tabla-container">
+  <table class="b-1px-gray">
     <thead>
-    <tr>
+    <tr class="b-1px-gray">
       <th>Poligono</th>
       <th>Aproximacion PI</th>
       <th>Angulo (sen/cos)</th>
@@ -13,22 +13,22 @@
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngFor="let iteracion of iteraciones">
-      <tr>
-        <td [innerText]="iteracion.ladosPoligono"></td>
-        <td [innerText]="iteracion.aproximacion"></td>
-        <td>
-          <div [innerText]="iteracion.angulo"></div>
-          <div [innerText]="iteracion.cos"></div>
-          <div [innerText]="iteracion.sin"></div>
-        </td>
-        <td [innerText]="iteracion.adyacente"></td>
-        <td [innerText]="iteracion.opuesto"></td>
-        <td [innerText]="iteracion.areaTriangular"></td>
-        <td [innerText]="iteracion.area"></td>
-        <td [innerText]="iteracion.perimetro"></td>
-      </tr>
-    </ng-container>
+    <tr *ngFor="let iteracion of iteraciones" class="b-1px-gray">
+      <td [innerText]="iteracion.ladosPoligono"></td>
+      <td [innerText]="iteracion.aproximacion"></td>
+      <td>
+        <div [innerText]="iteracion.angulo"></div>
+        <div [innerText]="iteracion.cos"></div>
+        <div [innerText]="iteracion.sin"></div>
+      </td>
+      <td [innerText]="iteracion.adyacente"></td>
+      <td [innerText]="iteracion.opuesto"></td>
+      <td [innerText]="iteracion.areaTriangular"></td>
+      <td [innerText]="iteracion.area"></td>
+      <td [innerText]="iteracion.perimetro"></td>
+    </tr>
     </tbody>
   </table>
+  <br>
 </div>
+<!-- length: {{iteraciones.length}} -->

@@ -1,27 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CalculateService } from '../../service/calculate.service';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { Iteracion } from '../../model/iteracion';
 
 @Component({
   selector: 'tabla',
   templateUrl: './tabla.component.html',
-  styleUrls: ['./tabla.component.css']
+  styleUrls: ['./tabla.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TablaComponent implements OnInit {
 
-  @Input() calculateService: CalculateService;
+  public iteraciones: Iteracion[] = [];
 
-  public iteraciones: Iteracion[];
-  public show = false;
-
-  constructor() {
+  constructor(public ref: ChangeDetectorRef, public zone: NgZone) {
+    // this.ref.detach();
+    // setInterval(() => { this.ref.detectChanges(); }, 1000);
   }
 
   ngOnInit() {
   }
 
-  render() {
-    this.iteraciones = this.calculateService.iteracion;
-    this.show = true;
+  clear() {
+    this.iteraciones = [];
+  }
+
+  render(iteracion: Iteracion) {
+    console.log('==== tabla de calculos =====', this.iteraciones);
+    this.iteraciones.push(iteracion);
   }
 }

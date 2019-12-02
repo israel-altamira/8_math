@@ -4,6 +4,7 @@ export class Data {
   public lados: number; // numero inicial de lados del poligono
   public radio: number; // radio del poligono
   public esperar: number; // en milisegundos
+  public continuar: boolean;
 
   public setEsperar(value: number) {
     this.esperar = value;

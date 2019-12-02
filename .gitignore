@@ -9,6 +9,9 @@
 
 # dependencies
 /node_modules
+/math/node_modules/*
+/math/package-lock.json
+
 
 # profiling files
 chrome-profiler-events.json

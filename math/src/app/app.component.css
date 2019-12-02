@@ -1,0 +1,33 @@
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.w-30 {
+
+  width: 30%;
+}
+
+.col-2 {
+  width: 16%;
+}
+.col-4 {
+  width: 33%;
+}
+.col-8 {
+  width: 66%;
+}
+.col-12 {
+  width: 100%;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mr-30 {
+  margin-right: 30px;
+}

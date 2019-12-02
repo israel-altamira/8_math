@@ -1,31 +1,57 @@
 import { Injectable } from '@angular/core';
 import { Iteracion } from '../model/iteracion';
 import { Data } from '../model/data';
+import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculateService {
 
-  public data: Data = new Data();
-  public iteracion: Iteracion[] = [];
+  public data: Data;
+  public calculousObservable: Observable<Iteracion>;
+  public intervalId: any;
 
   constructor() {
   }
 
-  public calculatePi() {
-    const ladosMin = this.data.ladosMin;
-    const ladosMax = this.data.ladosMax;
-    const ladosInicio = this.data.lados;
-    const radio = this.data.radio;
-    if (ladosInicio >= ladosMin && ladosInicio <= ladosMax) {
-      for (let ladosPoligono = ladosInicio, index = 0; ladosPoligono < ladosMax; ladosPoligono++, index++) {
-        this.calcularTrianguloDelPoligono(index, ladosPoligono, radio);
-        // esperar milisegundos por iteracion para graficar
-        // this.data.esperar;
-        // avisar con el iteration-service los resultados de la iteracion
-      }
+  public calculate(): Observable<Iteracion> {
+    this.calculousObservable = new Observable(this.calculousBody());
+    return this.calculousObservable;
+  }
+
+  public stop() {
+    if (!!this.intervalId) {
+      clearInterval(this.intervalId);
+      console.log('IntervalID fue Detenido');
     }
+  }
+
+  private calculousBody() {
+    return (observer: Observer<Iteracion>) => {
+      const ladosMin = this.data.ladosMin;
+      const ladosMax = this.data.ladosMax;
+      const ladosInicio = this.data.lados;
+      const radio = this.data.radio;
+
+      if (ladosInicio >= ladosMin && ladosInicio <= ladosMax) {
+        let ladosPoligono = ladosInicio;
+        let index = 0;
+        this.intervalId = setInterval(() => {
+          if (ladosPoligono < ladosMax) {
+            this.calcularTrianguloDelPoligono(index, ladosPoligono, radio, observer);
+            ladosPoligono++;
+            index++;
+          } else {
+            // observer.complete();
+          }
+        }, this.data.esperar);
+        console.log('El intervalo ha sido solicitado');
+      } else {
+        observer.error({code: 0});
+      }
+      console.log('Hemos terminado el Observable Body');
+    };
   }
 
   /*
@@ -33,8 +59,9 @@ export class CalculateService {
    - radio (viene del user input)
    - angulos para sacar el lados opuesto y adyacente del triangulo
    */
-  private calcularTrianguloDelPoligono(index: number, ladosPoligono: number, radio: number) {
-    console.log(`Arreglo de iteraciones length: ${this.iteracion.length}`);
+  private calcularTrianguloDelPoligono(index: number, ladosPoligono: number,
+                                       radio: number, observer: Observer<Iteracion>) {
+    console.log(`Arreglo de iteraciones length: ${index + 1}`);
     const aprox = new Iteracion();
     aprox.ladosPoligono = ladosPoligono;
     // sacar el angulo dividiendo el numero de lados del poligono:
@@ -60,8 +87,8 @@ export class CalculateService {
     aprox.perimetro = (aprox.opuesto * 2) * ladosPoligono;
     aprox.aproximacion = aprox.perimetro / (radio * 2);
     console.log(`${index + 1} // perimeto poligono: ${aprox.perimetro} // PI-aprox: ${aprox.aproximacion}`);
-    // EN TEORIA aqui podriamos avisarle al servicio de rendering que ya estan listas las cosas
+    // qui podemos avisarle al servicio de rendering que ya estan listas las cosas
     // es decir, rendering-service deberia subscribirse al service-iteration
-    this.iteracion[index] = aprox;
+    observer.next(aprox);
   }
 }

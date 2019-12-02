@@ -1,20 +1,75 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <img width="50" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <img width="50" alt="Angular Logo"
+       src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
   <span> Welcome to {{ title }}! </span>
 </div>
 
 <div class="row">
   <div class="col-4">
-    <poligono #poligono [calculateService]="calculateService"></poligono>
+    <poligono #poligono></poligono>
   </div>
   <div class="col-8">
-    <div class="row">
-      <div class="col-12"><label for="lados">Lados</label><input type="text" value="5" id="lados"></div>
-      <div class="col-12"><label for="radio">Radio</label><input type="text" value="10cm" id="radio"></div>
-      <div class="col-12"><input type="submit" value="calcular" (click)="onCalculate()"></div>
+    <div class="row" [formGroup]="poligonoForm">
+      <div class="row mt-10">
+        <div class="col-2"><span>Lados</span></div>
+        <div class="col-4"><input type="text" value="5" id="lados" formControlName="lados"></div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-2"><span class="w-30">Minimo</span></div>
+        <div class="col-4"><input type="text" value="5" id="minimo" formControlName="minimo"></div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-2"><span class="w-30">Maximo</span></div>
+        <div class="col-4"><input type="text" value="99" id="maximo" formControlName="maximo"></div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-2"><span class="w-30">Radio</span></div>
+        <div class="col-4"><input type="text" value="10cm" id="radio" formControlName="radio"></div>
+      </div>
+      <div class="row mt-10">
+        <div class="col-2"><span class="w-30">Pausa</span></div>
+        <div class="col-4"><input type="text" value="1000" id="pausa" formControlName="pausa"></div>
+      </div>
+      <div class="row mt-10">
+        <input type="submit" value="Calcular" (click)="onCalculate()" class="mr-30">
+        <input type="submit" value="Parar" (click)="onStop()">
+      </div>
     </div>
   </div>
-  <div>tabla de resultados</div>
-  <div><tabla #tabla [calculateService]="calculateService"></tabla></div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <tabla #tabla></tabla>
+  </div>
+</div>
+
+<div>
+  <div>Historial de cambios</div>
+  <ul>
+    <li>no time - investigar sobre canvas</li>
+    <li>no time - investigar como dibujar el poligono</li>
+    <li>no time - investigar radianes</li>
+    <li>no time - recordar fundamentos de funciones trigonometricas sin, cos, tan</li>
+    <li>no time - investigar como hacer un observable</li>
+    <li>no time - implementar el calculo de las iteraciones en un observable</li>
+    <li>27/11/2019 9:00: buscar por que no se refrescan el poligono y la tabla (markForChange, detectChange,
+      changeDetection: ChangeDetectionStrategy.OnPush)
+    </li>
+    <li>27/11/2019 9:00: buscar por que no se refrescan el poligono y la tabla (cambio de FOR a un setInterval)</li>
+    <li>https://stackoverflow.com/questions/41364386/whats-the-difference-between-markforcheck-and-detectchanges</li>
+    <li>27/11/2019 12:00: darle bordes a las filas</li>
+    <li>27/11/2019 12:00: darle background color gris a las filas</li>
+    <li>27/11/2019 12:00: borrar antes de pintar cada poligono</li>
+    <li>27/11/2019 13:00 funcion para parar el programa: clearInterval</li>
+    <li>https://www.w3schools.com/jsref/met_win_setinterval.asp</li>
+    <li>27/11/2019 13:47 ligar la funcionalidad al boton stop</li>
+    <li>27/11/2019 14:11 ligar el formulario al modelo</li>
+    - https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
+    <li>investigar que onda con el modelo asynch de setInterval</li>
+    <li>Tomar en cuenta la escala en centimetros dados en el input del formulario</li>
+    <li>Mostrar las medidas de los lados en la tabla de resultados en centimetros</li>
+    <li>Render de las medidas de los lados CANVAS</li>
+    <li>Render de las medidas de los amgulos CANVAS</li>
+  </ul>
 </div>

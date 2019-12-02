@@ -1,0 +1,20 @@
+
+.tabla-container {
+  height: 200px;
+  overflow:auto;
+}
+
+.tabla-container table {
+  border: 1px solid gray;
+  border-collapse: collapse;
+}
+
+.tabla-container th, .tabla-container td {
+  padding: 5px;
+  border-bottom: 1px solid gray;
+}
+
+.tabla-container tr:nth-child(even) {
+  background-color: lightgray;
+}
+
