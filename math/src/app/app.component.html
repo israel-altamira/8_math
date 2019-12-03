@@ -9,32 +9,34 @@
     <poligono #poligono></poligono>
   </div>
   <div class="col-8">
-    <div class="row" [formGroup]="poligonoForm">
-      <div class="row mt-10">
-        <div class="col-2"><span>Lados</span></div>
-        <div class="col-4"><input type="text" value="5" id="lados" formControlName="lados"></div>
+    <form [formGroup]="baseform">
+      <div class="row">
+        <div class="row mt-10">
+          <div class="col-2"><span>Lados</span></div>
+          <div class="col-4"><input type="text" value="5" id="lados" formControlName="lados"></div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-2"><span class="w-30">Minimo</span></div>
+          <div class="col-4"><input type="text" value="5" id="minimo" formControlName="minimo"></div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-2"><span class="w-30">Maximo</span></div>
+          <div class="col-4"><input type="text" value="99" id="maximo" formControlName="maximo"></div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-2"><span class="w-30">Radio</span></div>
+          <div class="col-4"><input type="text" value="10cm" id="radio" formControlName="radio"></div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-2"><span class="w-30">Pausa</span></div>
+          <div class="col-4"><input type="text" value="1000" id="pausa" formControlName="pausa"></div>
+        </div>
+        <div class="row mt-10">
+          <input type="submit" value="Calcular" (click)="onCalculate()" class="mr-30">
+          <input type="submit" value="Parar" (click)="onStop()">
+        </div>
       </div>
-      <div class="row mt-10">
-        <div class="col-2"><span class="w-30">Minimo</span></div>
-        <div class="col-4"><input type="text" value="5" id="minimo" formControlName="minimo"></div>
-      </div>
-      <div class="row mt-10">
-        <div class="col-2"><span class="w-30">Maximo</span></div>
-        <div class="col-4"><input type="text" value="99" id="maximo" formControlName="maximo"></div>
-      </div>
-      <div class="row mt-10">
-        <div class="col-2"><span class="w-30">Radio</span></div>
-        <div class="col-4"><input type="text" value="10cm" id="radio" formControlName="radio"></div>
-      </div>
-      <div class="row mt-10">
-        <div class="col-2"><span class="w-30">Pausa</span></div>
-        <div class="col-4"><input type="text" value="1000" id="pausa" formControlName="pausa"></div>
-      </div>
-      <div class="row mt-10">
-        <input type="submit" value="Calcular" (click)="onCalculate()" class="mr-30">
-        <input type="submit" value="Parar" (click)="onStop()">
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 
@@ -65,7 +67,10 @@
     <li>https://www.w3schools.com/jsref/met_win_setinterval.asp</li>
     <li>27/11/2019 13:47 ligar la funcionalidad al boton stop</li>
     <li>27/11/2019 14:11 ligar el formulario al modelo</li>
+    <li>02/12/2019 12:30 = </li>
     - https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
+    <li>de alguna forma mostrar las formulas en la pagina para serciorar que los datos arrojados son correctos</li>
+    <li>limpiar el area del poligo al hacer stop</li>
     <li>investigar que onda con el modelo asynch de setInterval</li>
     <li>Tomar en cuenta la escala en centimetros dados en el input del formulario</li>
     <li>Mostrar las medidas de los lados en la tabla de resultados en centimetros</li>

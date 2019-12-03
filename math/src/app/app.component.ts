@@ -17,28 +17,35 @@ export class AppComponent implements OnInit {
   @ViewChild('poligono') poligono: PoligonoComponent;
   @ViewChild('tabla') tabla: TablaComponent;
 
-  public form: FormGroup;
+  public baseform: FormGroup;
   public data = new Data();
   public title = 'Polygonal Rendering and PI calculate';
 
   constructor(public calculateService: CalculateService,
               public changeDetectorRef: ChangeDetectorRef) {
 
-    this.form = new FormGroup({
-      minimo: new FormControl(),
-      maximo: new FormControl(),
-      lados: new FormControl(),
-      radio: new FormControl(),
-      pausa: new FormControl()
+    const self = this;
+    this.data.minimo = 5;
+    this.data.maximo = 10;
+    this.data.lados = 5;
+    this.data.radio = 10;
+    this.data.esperar = 1000;
+
+    this.baseform = new FormGroup({
+      minimo: new FormControl(self.data.minimo),
+      maximo: new FormControl(self.data.maximo),
+      lados: new FormControl(self.data.lados),
+      radio: new FormControl(self.data.radio),
+      pausa: new FormControl(self.data.esperar)
     });
 
-    this.form.valueChanges.subscribe((model) => {
-      this.data.ladosMin = model.nombreControl;
-      this.data.ladosMax = model.nombreControl;
-      this.data.lados = model.nombreControl;
-      this.data.radio = model.nombreControl;
-      this.data.esperar = model.nombreControl;
-      this.calculateService.data = this.data;
+    this.baseform.valueChanges.subscribe((model) => {
+      this.data.minimo = Number.parseInt(model.minimo);
+      this.data.maximo = Number.parseInt(model.maximo);
+      this.data.lados = Number.parseInt(model.lados);
+      this.data.radio = Number.parseInt(model.radio);
+      this.data.esperar = Number.parseInt(model.pausa);
+      console.log('cambio en formulario', model, this.data);
     });
   }
 
@@ -48,14 +55,15 @@ export class AppComponent implements OnInit {
   public onCalculate(): void {
     const self = this;
     self.tabla.clear();
+    self.calculateService.setData(this.data);
     this.calculateService.calculate().subscribe(
       (iteracion: Iteracion) => {
         console.log('======Next=====', iteracion);
         self.poligono.render(iteracion);
         self.tabla.render(iteracion);
       },
-      () => {
-        console.log('=== sequence finished.');
+      (error) => {
+        console.log('=== sequence finished by error.', error);
       }
     );
     console.log('ya pasamos la llamada al subscribe');

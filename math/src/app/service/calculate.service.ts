@@ -8,11 +8,19 @@ import { Observable, Observer } from 'rxjs';
 })
 export class CalculateService {
 
-  public data: Data;
+  private _data: Data;
   public calculousObservable: Observable<Iteracion>;
   public intervalId: any;
 
   constructor() {
+  }
+
+  public setData(data: Data) {
+    this._data = data;
+  }
+
+  public getData() {
+    return this._data;
   }
 
   public calculate(): Observable<Iteracion> {
@@ -29,10 +37,10 @@ export class CalculateService {
 
   private calculousBody() {
     return (observer: Observer<Iteracion>) => {
-      const ladosMin = this.data.ladosMin;
-      const ladosMax = this.data.ladosMax;
-      const ladosInicio = this.data.lados;
-      const radio = this.data.radio;
+      const ladosMin = this.getData().minimo;
+      const ladosMax = this.getData().maximo;
+      const ladosInicio = this.getData().lados;
+      const radio = this.getData().radio;
 
       if (ladosInicio >= ladosMin && ladosInicio <= ladosMax) {
         let ladosPoligono = ladosInicio;
@@ -45,10 +53,16 @@ export class CalculateService {
           } else {
             // observer.complete();
           }
-        }, this.data.esperar);
+        }, this.getData().esperar);
         console.log('El intervalo ha sido solicitado');
       } else {
-        observer.error({code: 0});
+        observer.error({
+          code: 0,
+          minimo: ladosMin,
+          maximo: ladosMax,
+          lados: ladosInicio,
+          condicion: ladosInicio >= ladosMin && ladosInicio <= ladosMax
+        });
       }
       console.log('Hemos terminado el Observable Body');
     };
