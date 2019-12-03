@@ -64,6 +64,9 @@ export class AppComponent implements OnInit {
       },
       (error) => {
         console.log('=== sequence finished by error.', error);
+      },
+      () => {
+        console.log('=== sequence finished by Complete.');
       }
     );
     console.log('ya pasamos la llamada al subscribe');

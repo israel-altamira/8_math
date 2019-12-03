@@ -8,7 +8,7 @@
   <div class="col-4">
     <poligono #poligono></poligono>
   </div>
-  <div class="col-8">
+  <div class="col-4">
     <form [formGroup]="baseform">
       <div class="row">
         <div class="row mt-10">
@@ -37,6 +37,18 @@
         </div>
       </div>
     </form>
+  </div>
+  <div class="col-4">
+    <ul>
+      <li>Longitud del circulo</li>
+      <li>radio*(PI*2) [en radianes]</li>
+      <li>Angulo de 1 de los triangulos del poligono</li>
+      <li>radio*(PI*2)/#lados_del_poligono# [en radianes]</li>
+      <li>Angulo del triangulo rectangulo para calcular</li>
+      <li>radio*(PI*2)/(#lados_del_poligono#*2) => radio*PI/#lados-del-poligono#</li>
+      <li>Hipotenusa = Radio</li>
+      <li><img width="150" src="http://calculo.cc/temas/temas_geometria/perimetro_area/imagenes/teoria/polReg_hexagono/t_1_1.gif"></li>
+    </ul>
   </div>
 </div>
 
@@ -69,7 +81,7 @@
     <li>27/11/2019 14:11 ligar el formulario al modelo</li>
     <li>02/12/2019 12:30 = </li>
     - https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
-    <li>de alguna forma mostrar las formulas en la pagina para serciorar que los datos arrojados son correctos</li>
+    <li>03/12/2019 12:30 de alguna forma mostrar las formulas en la pagina para serciorar que los datos arrojados son correctos</li>
     <li>limpiar el area del poligo al hacer stop</li>
     <li>investigar que onda con el modelo asynch de setInterval</li>
     <li>Tomar en cuenta la escala en centimetros dados en el input del formulario</li>

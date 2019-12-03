@@ -13,6 +13,7 @@ export class CalculateService {
   public intervalId: any;
 
   constructor() {
+    this.calculousObservable = new Observable(this.calculousBody());
   }
 
   public setData(data: Data) {
@@ -24,7 +25,8 @@ export class CalculateService {
   }
 
   public calculate(): Observable<Iteracion> {
-    this.calculousObservable = new Observable(this.calculousBody());
+    // NOTA: el mismo observable puede seguir publicando varias veces al mismo .subscribe();
+    // this.calculousObservable = new Observable(this.calculousBody());
     return this.calculousObservable;
   }
 
@@ -51,7 +53,7 @@ export class CalculateService {
             ladosPoligono++;
             index++;
           } else {
-            // observer.complete();
+            observer.complete();
           }
         }, this.getData().esperar);
         console.log('El intervalo ha sido solicitado');
@@ -79,7 +81,8 @@ export class CalculateService {
     const aprox = new Iteracion();
     aprox.ladosPoligono = ladosPoligono;
     // sacar el angulo dividiendo el numero de lados del poligono:
-    // por ej, de un pentagono tenemos Pi*2 radianes / 5 para sacar 5 triangulos
+    // por ej, la longitud de 1 circulo es = (Pi*2 radianes),
+    // lo dividimos / 5 para sacar 5 triangulos
     // y volvemos a dividir esos 5 triangulos entre 2
     // ya que estaremos haciendo calculos sobre triangulos rectangulos.
     aprox.hipotenusa = radio;
