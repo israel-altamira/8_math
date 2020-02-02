@@ -31,12 +31,12 @@ resultante es una aproximaion a PI.
 
 ## Historial de cambios
   <ul>
-    <li>no time - investigar sobre canvas</li>
-    <li>no time - investigar como dibujar el poligono</li>
-    <li>no time - investigar radianes</li>
-    <li>no time - recordar fundamentos de funciones trigonometricas sin, cos, tan</li>
-    <li>no time - investigar como hacer un observable</li>
-    <li>no time - implementar el calculo de las iteraciones en un observable</li>
+    <li>4 dias - investigar sobre canvas</li>
+    <li>1 dia - investigar como dibujar el poligono</li>
+    <li>2 dias - investigar radianes</li>
+    <li>3 dias - recordar fundamentos de funciones trigonometricas sin, cos, tan</li>
+    <li>3 dias - investigar como hacer un observable</li>
+    <li>3 dias - implementar el calculo de las iteraciones en un observable</li>
     <li>27/11/2019 9:00: buscar por que no se refrescan el poligono y la tabla (markForChange, detectChange,
       changeDetection: ChangeDetectionStrategy.OnPush)
     </li>
@@ -52,6 +52,7 @@ resultante es una aproximaion a PI.
     <li>02/12/2019 12:30 https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
     <li>03/12/2019 12:30 de alguna forma mostrar las formulas en la pagina para cerciorarse de que los datos arrojados son correctos</li>
     <li>28/12/2019 12:00 - actualize este readme</li>
+    <li>Total 20 dias, entre recordar los conceptos matematicos y la programada</li>
   </ul>
 
 
